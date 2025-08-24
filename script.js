@@ -90,7 +90,15 @@ document.addEventListener('DOMContentLoaded', () => {
         // Human‑readable product name (replace dashes with spaces)
         const productName = id.replace(/-/g, ' ');
         // Save the purchase details to localStorage
-        const purchaseInfo = { product: productName, size: size, total: total };
+        // Include a preview of the uploaded image so the checkout page can
+        // display it. previewImage.src is a Data URL generated when the file
+        // was loaded above.
+        const purchaseInfo = {
+          product: productName,
+          size: size,
+          total: total,
+          imageData: previewImage ? previewImage.src : ''
+        };
         try {
           localStorage.setItem('purchaseInfo', JSON.stringify(purchaseInfo));
         } catch (err) {

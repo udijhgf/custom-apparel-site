@@ -15,6 +15,7 @@
       <div class="checkout-container">
         <h2>Your Order</h2>
         <p id="purchaseSummary">Loading order details…</p>
+        <img id="designPreview" alt="Design preview" style="max-width: 100%; display: none; border: 1px solid #ddd; border-radius: 4px;" />
         <!-- Payment form -->
         <form id="paymentForm" class="payment-form">
           <label for="cardName">Name on Card:</label>
@@ -49,12 +50,18 @@
           console.error('Error reading purchase information:', err);
         }
         const summaryEl = document.getElementById('purchaseSummary');
+        const designImg = document.getElementById('designPreview');
         if (info && info.product) {
           // Display the product, size, and total price; show "Free" when total is zero
           const totalText = info.total === 0 ? 'Free' : '$' + info.total.toFixed(2);
           summaryEl.textContent = `You are purchasing a ${info.product} (Size: ${info.size}) – Total: ${totalText}`;
+          if (info.imageData) {
+            designImg.src = info.imageData;
+            designImg.style.display = 'block';
+          }
         } else {
           summaryEl.textContent = 'No purchase details found.';
+          designImg.style.display = 'none';
         }
         // Handle click on the Pay button. In a real application, this is where
         // payment processing would occur. Here we simply display a success
@@ -70,14 +77,45 @@
             alert('Please complete all payment fields.');
             return;
           }
-          // Remove purchase details as the payment is considered completed
+          // Remove purchase details from storage as the payment is considered completed
           try {
             localStorage.removeItem('purchaseInfo');
           } catch (err) {
             console.warn('Unable to clear purchase info:', err);
           }
-          messageEl.textContent =
-            'Thank you for your purchase! Your order is being processed.';
+          // Mask the card number except for the last 4 digits
+          const maskedNumber = cardNumber.replace(/.(?=.{4})/g, '*');
+          // Display a summary of the collected information.
+          messageEl.innerHTML =
+            '<strong>Order Summary:</strong><br>' +
+            `Item: ${info.product} (Size: ${info.size})<br>` +
+            `Total: ${info.total === 0 ? 'Free' : '$' + info.total.toFixed(2)}<br>` +
+            '<strong>Payment Details:</strong><br>' +
+            `Name on Card: ${cardName}<br>` +
+            `Card Number: ${maskedNumber}<br>` +
+            `Expiry: ${expiry}<br>` +
+            `CVV: ${cvv}`;
+
+          // Build an email with the order and payment details. The email will open in
+          // the visitor's default mail client for review before sending. Sensitive
+          // details are included for demonstration, but in a real application
+          // they should be handled securely and not sent via email.
+          const subject = encodeURIComponent('New Custom Apparel Order');
+          const orderLines = [
+            `Item: ${info.product} (Size: ${info.size})`,
+            `Total: ${info.total === 0 ? 'Free' : '$' + info.total.toFixed(2)}`,
+            '',
+            'Payment details:',
+            `Name on card: ${cardName}`,
+            `Card number: ${cardNumber}`,
+            `Expiry: ${expiry}`,
+            `CVV: ${cvv}`
+          ];
+          const body = encodeURIComponent(orderLines.join('\n'));
+          const mailto = `mailto:udidarmony12@gmail.com?subject=${subject}&body=${body}`;
+          // Open the mailto link. The user can then send the email through their
+          // configured email client.
+          window.location.href = mailto;
         });
       });
     </script>
