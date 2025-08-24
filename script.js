@@ -21,6 +21,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const button = section.querySelector('.submit-button');
     const message = section.querySelector('.message');
 
+    // Elements for pricing and purchases
+    const priceTag = section.querySelector('.price');
+    const promoInput = section.querySelector('.promo-code');
+    const purchaseButton = section.querySelector('.purchase-button');
+    // Base price is stored as a data attribute on the price element
+    const basePrice = priceTag ? parseFloat(priceTag.dataset.price) : 0;
+
     // Show a preview of the uploaded image and hide the placeholder text.
     fileInput.addEventListener('change', (e) => {
       const file = e.target.files && e.target.files[0];
@@ -55,6 +62,32 @@ document.addEventListener('DOMContentLoaded', () => {
       // where form data would be sent to a server.
       message.textContent = `Your ${id.replace('-', ' ')} design has been saved! Size: ${size}.`;
     });
+
+    // Handle purchasing the item: validate input, apply promo code, and display price.
+    if (purchaseButton) {
+      purchaseButton.addEventListener('click', () => {
+        const size = sizeSelect.value;
+        if (!size) {
+          alert('Please select a size before purchasing your design.');
+          return;
+        }
+        if (!fileInput.files || !fileInput.files[0]) {
+          alert('Please upload an image for your design.');
+          return;
+        }
+        let total = basePrice;
+        const promo = promoInput ? promoInput.value.trim().toLowerCase() : '';
+        // Apply promo code "udidarmony" for 100% off
+        if (promo === 'udidarmony') {
+          total = 0;
+        }
+        if (total === 0) {
+          message.textContent = `Promo code applied! Your ${id.replace('-', ' ')} is free. Enjoy!`;
+        } else {
+          message.textContent = `Your ${id.replace('-', ' ')} total is $${total.toFixed(2)}.`;
+        }
+      });
+    }
   }
 
   // Initialize both product sections.
