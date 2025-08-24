@@ -1,0 +1,151 @@
+/*
+  Base styling for the Custom Apparel website.
+  This stylesheet defines a clean and modern look for the site, with responsive
+  cards for each product type and a simple upload interface. All measurements
+  are in relative units where sensible to ensure good scaling across devices.
+*/
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  background-color: #f8f9fa;
+  color: #333;
+  line-height: 1.4;
+}
+
+header {
+  padding: 2rem 1rem;
+  text-align: center;
+  background-color: #343a40;
+  color: #fff;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.25rem;
+  line-height: 1.2;
+}
+
+header p {
+  margin: 0.5rem 0 0;
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+main {
+  padding: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.product {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  width: 350px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product h2 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  color: #212529;
+}
+
+.product-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.preview-container {
+  width: 100%;
+  height: 300px;
+  border: 2px dashed #ccc;
+  border-radius: 4px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  background-color: #f1f3f5;
+}
+
+.preview-image {
+  max-width: 100%;
+  max-height: 100%;
+  display: none;
+  object-fit: contain;
+}
+
+.placeholder {
+  position: absolute;
+  text-align: center;
+  color: #777;
+  font-size: 0.9rem;
+  padding: 1rem;
+}
+
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+label {
+  font-weight: 600;
+  color: #495057;
+}
+
+select,
+input[type="file"] {
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+  font-size: 1rem;
+  background-color: #fff;
+}
+
+.submit-button {
+  padding: 0.6rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+.message {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: #28a745;
+  font-weight: 600;
+  text-align: center;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #343a40;
+  color: #fff;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Custom Apparel</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Custom Apparel</h1>
+      <p>Create your own T‑shirts and hoodies with your unique photo</p>
+    </header>
+
+    <main>
+      <!-- T‑Shirt Product Section -->
+      <section class="product" id="tshirt">
+        <h2>T‑Shirt</h2>
+        <div class="product-content">
+          <div class="preview-container">
+            <img
+              id="tshirtPreview"
+              class="preview-image"
+              src=""
+              alt="T‑shirt preview"
+            />
+            <p class="placeholder">Preview your design here</p>
+          </div>
+          <form>
+            <label for="tshirtSize">Choose your size:</label>
+            <select id="tshirtSize">
+              <option value="">Select size</option>
+              <option value="S">Small (S)</option>
+              <option value="M">Medium (M)</option>
+              <option value="L">Large (L)</option>
+              <option value="XL">Extra Large (XL)</option>
+            </select>
+
+            <label for="tshirtImage">Upload your design:</label>
+            <input type="file" id="tshirtImage" accept="image/*" />
+
+            <button type="button" class="submit-button">Save Design</button>
+          </form>
+          <div class="message"></div>
+        </div>
+      </section>
+
+      <!-- Hoodie Product Section -->
+      <section class="product" id="hoodie">
+        <h2>Hoodie</h2>
+        <div class="product-content">
+          <div class="preview-container">
+            <img
+              id="hoodiePreview"
+              class="preview-image"
+              src=""
+              alt="Hoodie preview"
+            />
+            <p class="placeholder">Preview your design here</p>
+          </div>
+          <form>
+            <label for="hoodieSize">Choose your size:</label>
+            <select id="hoodieSize">
+              <option value="">Select size</option>
+              <option value="S">Small (S)</option>
+              <option value="M">Medium (M)</option>
+              <option value="L">Large (L)</option>
+              <option value="XL">Extra Large (XL)</option>
+            </select>
+
+            <label for="hoodieImage">Upload your design:</label>
+            <input type="file" id="hoodieImage" accept="image/*" />
+
+            <button type="button" class="submit-button">Save Design</button>
+          </form>
+          <div class="message"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        Start customizing your apparel today. Upload your image and select your
+        size!
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
