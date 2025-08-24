@@ -183,3 +183,57 @@ footer {
   margin-top: 2rem;
   font-size: 0.9rem;
 }
+
+/* ===================== Checkout page styles ===================== */
+/* Container for the checkout page content */
+.checkout-container {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  padding: 1.5rem;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Title styling for the checkout page */
+.checkout-container h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #212529;
+}
+
+/* Form layout within the checkout container */
+.checkout-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Inputs on the checkout page */
+.checkout-container input {
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+  font-size: 1rem;
+  background-color: #fff;
+}
+
+/* Pay button styling */
+.pay-button {
+  padding: 0.6rem;
+  background-color: #ffc107;
+  color: #212529;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.pay-button:hover {
+  background-color: #e0a800;
+}

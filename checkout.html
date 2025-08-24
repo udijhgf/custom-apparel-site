@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout – Custom Apparel</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Checkout</h1>
+      <p>Enter your payment details to complete your purchase</p>
+    </header>
+    <main>
+      <div class="checkout-container">
+        <h2>Your Order</h2>
+        <p id="purchaseSummary">Loading order details…</p>
+        <!-- Payment form -->
+        <form id="paymentForm" class="payment-form">
+          <label for="cardName">Name on Card:</label>
+          <input type="text" id="cardName" placeholder="Name on card" required />
+
+          <label for="cardNumber">Card Number:</label>
+          <input
+            type="text"
+            id="cardNumber"
+            placeholder="1234 5678 9012 3456"
+            required
+          />
+
+          <label for="expiry">Expiration Date:</label>
+          <input type="text" id="expiry" placeholder="MM/YY" required />
+
+          <label for="cvv">CVV:</label>
+          <input type="text" id="cvv" placeholder="123" required />
+
+          <button type="button" class="pay-button">Pay</button>
+        </form>
+        <div class="message" id="paymentMessage"></div>
+      </div>
+    </main>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Retrieve purchase details from localStorage
+        let info = null;
+        try {
+          info = JSON.parse(localStorage.getItem('purchaseInfo') || '{}');
+        } catch (err) {
+          console.error('Error reading purchase information:', err);
+        }
+        const summaryEl = document.getElementById('purchaseSummary');
+        if (info && info.product) {
+          // Display the product, size, and total price; show "Free" when total is zero
+          const totalText = info.total === 0 ? 'Free' : '$' + info.total.toFixed(2);
+          summaryEl.textContent = `You are purchasing a ${info.product} (Size: ${info.size}) – Total: ${totalText}`;
+        } else {
+          summaryEl.textContent = 'No purchase details found.';
+        }
+        // Handle click on the Pay button. In a real application, this is where
+        // payment processing would occur. Here we simply display a success
+        // message and clear the stored purchase information.
+        const payButton = document.querySelector('.pay-button');
+        const messageEl = document.getElementById('paymentMessage');
+        payButton.addEventListener('click', () => {
+          const cardName = document.getElementById('cardName').value.trim();
+          const cardNumber = document.getElementById('cardNumber').value.trim();
+          const expiry = document.getElementById('expiry').value.trim();
+          const cvv = document.getElementById('cvv').value.trim();
+          if (!cardName || !cardNumber || !expiry || !cvv) {
+            alert('Please complete all payment fields.');
+            return;
+          }
+          // Remove purchase details as the payment is considered completed
+          try {
+            localStorage.removeItem('purchaseInfo');
+          } catch (err) {
+            console.warn('Unable to clear purchase info:', err);
+          }
+          messageEl.textContent =
+            'Thank you for your purchase! Your order is being processed.';
+        });
+      });
+    </script>
+  </body>
+</html>

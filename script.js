@@ -63,29 +63,41 @@ document.addEventListener('DOMContentLoaded', () => {
       message.textContent = `Your ${id.replace('-', ' ')} design has been saved! Size: ${size}.`;
     });
 
-    // Handle purchasing the item: validate input, apply promo code, and display price.
+    // Handle purchasing the item: validate input, compute total price and
+    // navigate to a dedicated checkout page. Purchase details are saved in
+    // localStorage so that checkout.html can display them and collect
+    // payment information.
     if (purchaseButton) {
       purchaseButton.addEventListener('click', () => {
         const size = sizeSelect.value;
+        // Validate that a size has been selected
         if (!size) {
           alert('Please select a size before purchasing your design.');
           return;
         }
+        // Validate that an image has been uploaded
         if (!fileInput.files || !fileInput.files[0]) {
           alert('Please upload an image for your design.');
           return;
         }
+        // Start with the base price defined in the data attribute
         let total = basePrice;
         const promo = promoInput ? promoInput.value.trim().toLowerCase() : '';
-        // Apply promo code "udidarmony" for 100% off
+        // Apply the promo code "udidarmony" for a full discount
         if (promo === 'udidarmony') {
           total = 0;
         }
-        if (total === 0) {
-          message.textContent = `Promo code applied! Your ${id.replace('-', ' ')} is free. Enjoy!`;
-        } else {
-          message.textContent = `Your ${id.replace('-', ' ')} total is $${total.toFixed(2)}.`;
+        // Human‑readable product name (replace dashes with spaces)
+        const productName = id.replace(/-/g, ' ');
+        // Save the purchase details to localStorage
+        const purchaseInfo = { product: productName, size: size, total: total };
+        try {
+          localStorage.setItem('purchaseInfo', JSON.stringify(purchaseInfo));
+        } catch (err) {
+          console.error('Unable to store purchase information:', err);
         }
+        // Redirect to the checkout page where payment details can be entered
+        window.location.href = 'checkout.html';
       });
     }
   }
